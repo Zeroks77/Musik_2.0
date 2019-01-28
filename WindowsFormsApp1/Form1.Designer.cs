@@ -61,9 +61,10 @@
             "9",
             "10"});
             this.Durchläufe.Location = new System.Drawing.Point(12, 36);
+            this.Durchläufe.SelectedIndex = 0;
             this.Durchläufe.Name = "Durchläufe";
             this.Durchläufe.Size = new System.Drawing.Size(120, 134);
-            this.Durchläufe.TabIndex = 0;
+            this.Durchläufe.TabIndex = 1;
             // 
             // button1
             // 
@@ -171,6 +172,7 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "Play";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // button3
             // 

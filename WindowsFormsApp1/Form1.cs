@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -86,16 +87,11 @@ namespace WindowsFormsApp1
         }
         private List<string> notes()
         {
-            List<int> sortedList = new List<int>();
+            var sortedList = Enumerable.Range(1, 14).ToList();
             List<string> note = new List<string>();
             List<int> mixedList = new List<int>();
             note.Clear();
             var x = 0;
-            foreach (var item in sortedList)
-            {
-                sortedList[x] = x + 1;
-                x++;
-            }
             mixedList = mix(sortedList);
             foreach (var item in mixedList)
             {
@@ -170,7 +166,6 @@ namespace WindowsFormsApp1
         }
         private void turntable()
         {
-            
             List<string> notes = new List<string>();
             int a;
             int.TryParse(Durchläufe.SelectedItem.ToString(), out a);
@@ -184,6 +179,89 @@ namespace WindowsFormsApp1
                 ausgabe(notes, x);
                 notes.Clear();
             }
-        }   
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            List<string> notes = new List<string>();
+            int a;
+            int.TryParse(Durchläufe.SelectedItem.ToString(), out a);
+            for (int x = 0; x < a; x++)
+            {
+                for (int i = 0; i < 13; i++)
+                {
+                    notes.Add(tabel[x, i].Value.ToString());
+                }
+                abspielen(noteToFreq(notes));
+                notes.Clear();
+            }
+        }
+        private List<int> noteToFreq(List<string> notes)
+        {
+            List<int> freq = new List<int>();
+            foreach (var item in notes)
+            {
+                switch (item)
+                {   case"C":
+                        freq.Add(262);
+                        continue;
+                    case"CIS":
+                        freq.Add(277);
+                        continue;
+                    case"D":
+                        freq.Add(294);
+                        continue;
+                    case"DIS":
+                        freq.Add(311);
+                        continue;
+                    case"E":
+                        freq.Add(330);
+                        continue;
+                    case"F":
+                        freq.Add(349);
+                        continue;
+                    case"FIS":
+                        freq.Add(370);
+                        continue;
+                    case"G":
+                        freq.Add(392);
+                        continue;
+                    case"GIS":
+                        freq.Add(415);
+                        continue;
+                    case"A":
+                        freq.Add(440);
+                        continue;
+                    case"AIS":
+                        freq.Add(466);
+                        continue;
+                    case"H":
+                        freq.Add(494);
+                        continue;
+                    default:
+                        freq.Add(37);
+                        break;
+                }
+            }
+            return freq;
+        }
+        private void abspielen(List<int> frequency)
+        {
+            Random ran = new Random();
+            int location = 0;
+            foreach (var item in frequency)
+            {
+                var duration = ran.Next(500, 2000);
+                tabel.Inde;
+                if (item == 37)
+                {
+                    System.Threading.Thread.Sleep(duration);
+                }
+                else
+                { 
+                Console.Beep(item, duration);
+                }
+            }
+        }
     }
 }
