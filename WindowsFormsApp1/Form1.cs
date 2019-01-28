@@ -31,15 +31,6 @@ namespace WindowsFormsApp1
                 note.Clear();
             }
         }
-        private void ausgabe(List<string> note, int a)
-        {
-                int i = 0; 
-                foreach (var item in note)
-                {
-                    tabel[a,i].Value = item;
-                    i++;
-                }    
-        }
         private void enablecolumm(int a)
         {
             if (a > 1)
@@ -49,7 +40,7 @@ namespace WindowsFormsApp1
             if (a > 2)
             {
                 Column3.Visible = true;
-                
+
             }
             if (a > 3)
             {
@@ -84,19 +75,31 @@ namespace WindowsFormsApp1
                 tabel.Rows.Add();
             }
         }
+        private void ausgabe(List<string> note, int a)
+        {
+                int i = 0; 
+                foreach (var item in note)
+                {
+                    tabel[a,i].Value = item;
+                    i++;
+                }    
+        }
         private List<string> notes()
         {
-            int[] first = new int[13];
+            List<int> sortedList = new List<int>();
             List<string> note = new List<string>();
+            List<int> mixedList = new List<int>();
             note.Clear();
-            for (int x = 0; x < first.Length; x++)
+            var x = 0;
+            foreach (var item in sortedList)
             {
-                first[x] = x + 1;
+                sortedList[x] = x + 1;
+                x++;
             }
-            var mixedarry = mix(first);
-            for(int x = 0; x < mixedarry.Length; x++)
-            { 
-                switch (first[x])
+            mixedList = mix(sortedList);
+            foreach (var item in mixedList)
+            {
+                switch (item)
                 {
                     case 1:
                         note.Add("C");
@@ -143,7 +146,8 @@ namespace WindowsFormsApp1
             }
             return note;
         }
-       private int[] mix(int[] array)
+        
+       private List<int> mix(List<int> list)
         {
             int helpme, helpme2;
             int i = 12;
@@ -151,13 +155,35 @@ namespace WindowsFormsApp1
             while (i > 0)
             {
                 int random = ran.Next(0, 12);
-                helpme = array[random];
-                helpme2 = array[i];
-                array[i] = helpme;
-                array[random] = helpme2;
+                helpme = list[random];
+                helpme2 = list[i];
+                list[i] = helpme;
+                list[random] = helpme2;
                 i--;
             }
-            return array;
+            return list;
         }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            turntable();
+        }
+        private void turntable()
+        {
+            
+            List<string> notes = new List<string>();
+            int a;
+            int.TryParse(Durchläufe.SelectedItem.ToString(), out a);
+            for (int x = 0; x < a; x++)
+            {
+                for (int i = 0; i < 13; i++)
+                {
+                    notes.Add(tabel[x, i].Value.ToString());
+                }
+                notes.Reverse();
+                ausgabe(notes, x);
+                notes.Clear();
+            }
+        }   
     }
 }
