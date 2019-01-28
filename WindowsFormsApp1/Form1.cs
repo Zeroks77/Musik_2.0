@@ -86,9 +86,6 @@ namespace WindowsFormsApp1
         }
         private List<string> notes()
         {
-           
-            int helpme = 0;
-            int helpme2 = 0;
             int[] first = new int[13];
             List<string> note = new List<string>();
             note.Clear();
@@ -96,18 +93,8 @@ namespace WindowsFormsApp1
             {
                 first[x] = x + 1;
             }
-            int i = 12;
-            Random ran = new Random();
-                while (i > 0)
-                {
-                i--;
-                int random = ran.Next(0, 12);
-                helpme = first[random];
-                helpme2 = first[i];
-                first[i] = helpme;
-                first[random] = helpme2;
-                }
-            for(int x = 0; x < first.Length; x++)
+            var mixedarry = mix(first);
+            for(int x = 0; x < mixedarry.Length; x++)
             { 
                 switch (first[x])
                 {
@@ -155,6 +142,22 @@ namespace WindowsFormsApp1
                 }
             }
             return note;
+        }
+       private int[] mix(int[] array)
+        {
+            int helpme, helpme2;
+            int i = 12;
+            Random ran = new Random();
+            while (i > 0)
+            {
+                int random = ran.Next(0, 12);
+                helpme = array[random];
+                helpme2 = array[i];
+                array[i] = helpme;
+                array[random] = helpme2;
+                i--;
+            }
+            return array;
         }
     }
 }
